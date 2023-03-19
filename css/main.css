@@ -442,7 +442,7 @@ Banner
 
 .promo-block .promo-block-title {
     font-size: 70px;
-    color: #fff;
+    color: rgb(0, 0, 0);
     line-height: 1;
 }
 
@@ -884,7 +884,6 @@ line-height: 1.6em;
     background: -o-linear-gradient(top, rgba(221,221,221,0) 0%, rgb(221,221,221) 8%, rgb(221,221,221) 92%, rgba(221,221,221,0) 100%);
     background: -ms-linear-gradient(top, rgba(221,221,221,0) 0%, rgb(221,221,221) 8%, rgb(221,221,221) 92%, rgba(221,221,221,0) 100%);
     background: linear-gradient(to bottom, rgba(221,221,221,0) 0%, rgb(221,221,221) 8%, rgb221,221,221) 92%, rgba(221,221,221,0) 100%);
-
     z-index: 5;
 }
 
