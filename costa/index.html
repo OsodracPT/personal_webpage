@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pacotão do Costa em BTC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script>
+      $(document).ready(function () {
+        // fetch the Bitcoin price in EUR
+        $.getJSON(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur&date=18-03-2022",
+          function (data) {
+            var bitcoinPrice = data.bitcoin.eur;
+
+            // display the Bitcoin price on the page
+            $("#bitcoinPrice").html(
+              bitcoinPrice.toLocaleString("de-DE", {
+                style: "currency",
+                currency: "EUR",
+              })
+            );
+
+            // calculate the value of 0.00594257 BTC in EUR
+            var btcAmount = 0.00594257;
+            var euroAmount = btcAmount * bitcoinPrice;
+
+            // display the value of 0.00594257 BTC in EUR on the page
+            $("#btcValue").html(
+              euroAmount.toLocaleString("de-DE", {
+                style: "currency",
+                currency: "EUR",
+              })
+            );
+
+            // display the past value of 0.00594257 BTC on the page
+            $("#pastValue").html("125€");
+
+            // calculate the percentage change
+            var percentageChange = ((euroAmount - 125) / 125) * 100;
+
+            // display the percentage change on the page
+            if (percentageChange > 0) {
+              $("#profitability").html(
+                "Rentabilidade de " + percentageChange.toFixed(2) + "%"
+              );
+              $("#profitability").css("color", "green");
+            } else if (percentageChange < 0) {
+              $("#profitability").html(
+                "Unprofitable by " + Math.abs(percentageChange).toFixed(2) + "%"
+              );
+              $("#profitability").css("color", "red");
+            } else {
+              $("#profitability").html("No change in value");
+              $("#profitability").css("color", "black");
+            }
+          }
+        );
+      });
+    </script>
+    <style>
+      .container {
+        margin: 50px;
+      }
+      canvas {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <img
+            src="https://www.maxpixel.net/static/photo/2x/Bitcoin-Money-Symbol-Digital-Currency-Logo-910307.png"
+            alt="Bitcoin Logo"
+            width="200"
+            height="200"
+          />
+          <h1 class="title">Pacotão do Costa em BTC</h1>
+        </div>
+      </div>
+    </section>
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <p class="subtitle">Preço atual de 1 BTC:</p>
+          <h2 class="title" id="bitcoinPrice"></h2>
+        </div>
+        <div class="column">
+          <p class="subtitle">125€ investidos em BTC valem agora:</p>
+          <h2 class="title" id="btcValue"></h2>
+        </div>
+        <div class="column">
+          <p class="subtitle">Rentabilidade:</p>
+          <h2 class="title" id="profitability"></h2>
+        </div>
+      </div>
+    </div>
+    <body>
+        <div class="hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">Bitcoin Price Chart</h1>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+            <div class="container">
+                <div id="bitcoinChart"></div>
+            </div>
+        </section>
+        <section>
+            <div class="container has-text-centered">
+                <h1>
+                    Chart data provided by <a href="https://www.coindesk.com/price/bitcoin">CoinDesk</a>. Created by <a href="https://github.com/OsodracPT">OsodracPT</a>
+                </h1>
+            </div>        
+        </section>
+        <script>
+            // Get current date in YYYY-MM-DD format
+            var currentDate = new Date().toISOString().slice(0, 10);
+            // Fetch data for Bitcoin price from Coindesk API
+            fetch('https://api.coindesk.com/v1/bpi/historical/close.json?start=2011-01-01&end=' + currentDate)
+                .then(response => response.json())
+                .then(data => {
+                    // Convert data to Highcharts format
+                    var seriesData = Object.keys(data.bpi).map(function(key) {
+                        return [new Date(key).getTime(), data.bpi[key]];
+                    });
+    
+                    // Draw Bitcoin price chart using Highcharts
+                    Highcharts.chart('bitcoinChart', {
+                        chart: {
+                            zoomType: 'x'
+                        },
+                        title: {
+                            text: 'Bitcoin Price Chart'
+                        },
+                        xAxis: {
+                            type: 'datetime'
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Bitcoin Price'
+                            }
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            area: {
+                                fillColor: {
+                                    linearGradient: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 0,
+                                        y2: 1
+                                    },
+                                    stops: [
+                                        [0, Highcharts.getOptions().colors[0]],
+                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                    ]
+                                },
+                                marker: {
+                                    radius: 2
+                                },
+                                lineWidth: 1,
+                                states: {
+                                    hover: {
+                                        lineWidth: 1
+                                    }
+                                },
+                                threshold: null
+                            }
+                        },
+                        series: [{
+                            type: 'area',
+                            name: 'Bitcoin Price',
+                            data: seriesData
+                        }]
+                    });
+                });
+        </script>
+    </body>
+</html>
