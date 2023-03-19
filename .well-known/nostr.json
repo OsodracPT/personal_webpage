@@ -1,0 +1,18 @@
+{
+  "names": {
+    "Osodrac": "5d6507ce167154c552bafaae7aa697c337a64fc2febe8fecf93d9f1bdf76661e",
+    "Pedro Cardoso": "5d6507ce167154c552bafaae7aa697c337a64fc2febe8fecf93d9f1bdf76661e",
+    "PedroCardoso": "5d6507ce167154c552bafaae7aa697c337a64fc2febe8fecf93d9f1bdf76661e"
+  },
+  "relays": {
+    "b0635d6a9851d3aed0cd6c495b282167acf761729078d975fc341b22650b07b9": [
+      "wss://nostr-pub.wellorder.net",
+      "wss://nos.lol",
+      "wss://relay.damus.io",
+      "wss://nos.lol",
+      "wss://coracle",
+      "wss://relay.current.fyi",
+      "wss://relay.snort.social"
+    ]
+  }
+}
