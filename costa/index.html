@@ -81,10 +81,10 @@
       <div class="hero-body">
         <div class="container has-text-centered">
           <img
-            src="https://www.maxpixel.net/static/photo/2x/Bitcoin-Money-Symbol-Digital-Currency-Logo-910307.png"
+            src="https://logospng.org/download/bitcoin/logo-bitcoin-1024.png"
             alt="Bitcoin Logo"
-            width="200"
-            height="200"
+            width="220"
+            height="220"
           />
           <h1 class="title">Pacotão do Costa em BTC</h1>
         </div>
@@ -116,80 +116,11 @@
         </div>
         <section class="section">
             <div class="container">
-                <div id="bitcoinChart"></div>
-            </div>
-        </section>
-        <section>
-            <div class="container has-text-centered">
+              <div style="height:540px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=chart&amp;theme=light&amp;coin_id=859&amp;pref_coin_id=1506" width="100%" height="536px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;line-height:14px;"></iframe></div><div style="color: #FFFFFF; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #FFFFFF; text-decoration:none; font-size:11px">Cryptocurrency Prices</a>&nbsp;by Coinlib</div>            <div class="container has-text-centered">
                 <h1>
-                    Chart data provided by <a href="https://www.coindesk.com/price/bitcoin">CoinDesk</a>. Created by <a href="https://github.com/OsodracPT">OsodracPT</a>
+                    Chart data provided by <a href="https://coinlib.io/">coinlib.io</a>. Created by <a href="https://github.com/OsodracPT">OsodracPT</a>
                 </h1>
             </div>        
         </section>
-        <script>
-            // Get current date in YYYY-MM-DD format
-            var currentDate = new Date().toISOString().slice(0, 10);
-            // Fetch data for Bitcoin price from Coindesk API
-            fetch('https://api.coindesk.com/v1/bpi/historical/close.json?start=2011-01-01&end=' + currentDate)
-                .then(response => response.json())
-                .then(data => {
-                    // Convert data to Highcharts format
-                    var seriesData = Object.keys(data.bpi).map(function(key) {
-                        return [new Date(key).getTime(), data.bpi[key]];
-                    });
-    
-                    // Draw Bitcoin price chart using Highcharts
-                    Highcharts.chart('bitcoinChart', {
-                        chart: {
-                            zoomType: 'x'
-                        },
-                        title: {
-                            text: 'Bitcoin Price Chart'
-                        },
-                        xAxis: {
-                            type: 'datetime'
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Bitcoin Price'
-                            }
-                        },
-                        legend: {
-                            enabled: false
-                        },
-                        plotOptions: {
-                            area: {
-                                fillColor: {
-                                    linearGradient: {
-                                        x1: 0,
-                                        y1: 0,
-                                        x2: 0,
-                                        y2: 1
-                                    },
-                                    stops: [
-                                        [0, Highcharts.getOptions().colors[0]],
-                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                                    ]
-                                },
-                                marker: {
-                                    radius: 2
-                                },
-                                lineWidth: 1,
-                                states: {
-                                    hover: {
-                                        lineWidth: 1
-                                    }
-                                },
-                                threshold: null
-                            }
-                        },
-                        series: [{
-                            type: 'area',
-                            name: 'Bitcoin Price',
-                            data: seriesData
-                        }]
-                    });
-                });
-        </script>
     </body>
 </html>
