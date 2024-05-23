@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pacotão da FAP em Bitcoin!</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Highcharts -->
+    <script>
+      $(document).ready(function () {
+        document.getElementById("myButton").onclick = function () {
+        location.href = "https://bitcoin.rocks/inflation";
+        };
+        // fetch the Bitcoin price in EUR
+        $.getJSON(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur&date=18-03-2022",
+          function (data) {
+            var bitcoinPrice = data.bitcoin.eur;
+
+            // display the Bitcoin price on the page
+            $("#bitcoinPrice").html(
+              bitcoinPrice.toLocaleString("de-DE", {
+                style: "currency",
+                currency: "EUR",
+              })
+            );
+
+            // calculate the value of 0,06460079 BTC in EUR
+            var btcAmount = 0.06460079;
+            var euroAmount = btcAmount * bitcoinPrice;
+
+            // display the value of 0,06460079 BTC in EUR on the page
+            $("#btcValue").html(
+              euroAmount.toLocaleString("de-DE", {
+                style: "currency",
+                currency: "EUR",
+              })
+            );
+
+            // display the past value of 0.06460079 BTC on the page
+            $("#pastValue").html("3938€");
+
+            // calculate the percentage change
+            var percentageChange = ((euroAmount - 3938) / 3938) * 100;
+
+            // display the percentage change on the page
+            if (percentageChange > 0) {
+              $("#profitability").html(
+                "Rentabilidade de " + percentageChange.toFixed(2) + "%"
+              );
+              $("#profitability").css("color", "green");
+            } else if (percentageChange < 0) {
+              $("#profitability").html(
+                "Unprofitable by " + Math.abs(percentageChange).toFixed(2) + "%"
+              );
+              $("#profitability").css("color", "red");
+            } else {
+              $("#profitability").html("No change in value");
+              $("#profitability").css("color", "black");
+            }
+          }
+        );
+      });
+    </script>
+    <style>
+      .container {
+        margin: 50px;
+      }
+      canvas {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <img
+            src="https://logospng.org/download/bitcoin/logo-bitcoin-1024.png"
+            alt="Bitcoin Logo"
+            width="200"
+            height="200"
+          />
+          <img
+          src="https://www.emfa.pt/images/logo@2x.png"
+          alt="FAP Logo"
+          width="220"
+          height="220"
+        />
+          <div class="container has-text-centered">
+          <h1 class="title">Pacotão da FAP em Bitcoin!</h1>
+        </div>
+      </div>
+    </section>
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <p class="subtitle">Preço atual de 1 BTC:</p>
+          <h2 class="title" id="bitcoinPrice"></h2>
+        </div>
+        <div class="column">
+          <p class="subtitle">3938€ investidos em BTC (20/05/2024) valem agora:</p>
+          <h2 class="title" id="btcValue"></h2>
+        </div>
+        <div class="column">
+          <p class="subtitle">Rentabilidade:</p>
+          <h2 class="title" id="profitability"></h2>
+        </div>
+      </div>
+    </div>
+    <section class="hero is-primary">
+      <div class="hero-body">
+          <div class="container has-text-centered">
+              <button id="myButton" class="button is-warning">Aprende mais sobre inflação!</button>
+        </div>
+      </div>
+    </section>
+    <body>
+    </body>
+</html>
